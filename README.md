@@ -1,7 +1,99 @@
-# API
+# API registriranih vozil v Sloveniji
 
 API za pridobitev podatkov o vseh registriranih avtomobilih v Sloveniji.
 
+
+## išči po VIN številki
+
+```
+GET https://api-aw46ycnrva-ey.a.run.app/api/v0/vehicles?vin=jhmrxxxxxxxxxxxxx
+```
+
+S tem klicem lahko z vnosom VIN številke poiščeš podatke o vozilu.
+
+### Request
+
+> 
+> **Query**
+> 
+> |Key|Value|Description|
+> |---|---|---|
+> |vin|jhmrxxxxxxxxxxxxx|VIN številka vozila, ki ga iščemo|
+> 
+
+## išči po večih VIN številkah (max 25)
+
+```
+GET https://api-aw46ycnrva-ey.a.run.app/api/v0/vehicles?vin=jhmrxxxxxxxxxxxxx&vin=wvwzxxxxxxxxxxxxx
+```
+
+Če želiš preveriti podatke za več vozil hkrati, lahko v klic nanizaš več VIN številk. Maksimalno dovoljeno število v enem klicu je 25. Če jih potrebuješ več, moraš to narediti z ločenimi klici.
+
+### Request
+
+> 
+> **Query**
+> 
+> |Key|Value| Description                               |
+> |---|-------------------------------------------|---|
+> |vin|jhmrxxxxxxxxxxxxx| VIN številka vozila, ki ga iščemo         |
+> |vin|wvwzxxxxxxxxxxxxx| VIN številka drugega vozila, ki ga iščemo |
+> 
+
+## poizvedba po bazi po različnih parametrih
+
+```
+GET https://api-aw46ycnrva-ey.a.run.app/api/v0/query?gorivo=bencin&model_simple=jazz
+```
+
+Omogočeno je tudi klicanje poizvedb s filtriranjem.
+
+Filtri, ki jih trenutno lahko določamo:
+
+- Filtriramo lahko po enakosti polja: gorivo = "bencin"
+- Filtre enakosti lahko tudi združujemo z ostalimi: gorivo = "bencin" in model_simple = "jazz"
+    
+
+Parameter limit predstavlja število vrnjenih zapisov. Maksimalno število je 25.
+
+Parameter offset pa je VIN številka zadnjega zapisa v predhodnem odgovoru. Ta parameter uporabimo, če naša poizvedba vrne >25 zapisov. Recimo, da naša poizvedba vsebuje 50 zapisov. To pomeni, da jih bomo v odgovoru dobili max. 25, če le to z limit parametrom nismo določili drugače.
+
+Če bi želeli dobiti naslednjih 25 v tej poizvedbi, moramo z offset parametrom poslati VIN zadnjega zapisa v prejšnjem odogovoru. Če offset parametra ne bi specificirali, bi ponovno dobili enakih 25 zapisov.
+
+### Request
+
+> 
+> **Query**
+> 
+> |Key|Value|Description|
+> |---|---|---|
+> |gorivo|bencin||
+> |model_simple|jazz||
+> 
+
+## poizvedba po bazi po različnih parametrih z offset-om
+
+```
+GET https://api-aw46ycnrva-ey.a.run.app/api/v0/query?gorivo=bencin&model_simple=jazz&offset=jhmgxxxxxxxxxxxxx
+```
+
+Če bi želeli dobiti naslednjih 25 v tej poizvedbi, moramo z offset parametrom poslati VIN zadnjega zapisa v prejšnjem odogovoru. Če offset parametra ne bi specificirali, bi ponovno dobili enakih 25 zapisov.
+
+### Request
+
+> 
+> **Query**
+> 
+> |Key|Value|Description|
+> |---|---|---|
+> |gorivo|bencin||
+> |model_simple|jazz||
+> |offset|jhmgxxxxxxxxxxxxx|Zadnja vin številka v predhodnem izpisu|
+>
+
+---
+
+## Primer izpisa podatkov:
 ``` json
 {
     "result": {
@@ -101,95 +193,6 @@ API za pridobitev podatkov o vseh registriranih avtomobilih v Sloveniji.
 // Opozorilo, če je vozilo v svoji zgodovini imelo kdaj neuspešen tehnični ali pogojno brezhiben pregled
 
  ```
-
-## išči po VIN številki
-
-```
-GET https://api-aw46ycnrva-ey.a.run.app/api/v0/vehicles?vin=jhmrxxxxxxxxxxxxx
-```
-
-S tem klicem lahko z vnosom VIN številke poiščeš podatke o vozilu.
-
-### Request
-
-> 
-> **Query**
-> 
-> |Key|Value|Description|
-> |---|---|---|
-> |vin|jhmrxxxxxxxxxxxxx|VIN številka vozila, ki ga iščemo|
-> 
-
-## išči po večih VIN številkah (max 25)
-
-```
-GET https://api-aw46ycnrva-ey.a.run.app/api/v0/vehicles?vin=jhmrxxxxxxxxxxxxx&vin=wvwzxxxxxxxxxxxxx
-```
-
-Če želiš preveriti podatke za več vozil hkrati, lahko v klic nanizaš več VIN številk. Maksimalno dovoljeno število v enem klicu je 25. Če jih potrebuješ več, moraš to narediti z ločenimi klici.
-
-### Request
-
-> 
-> **Query**
-> 
-> |Key|Value| Description                               |
-> |---|-------------------------------------------|---|
-> |vin|jhmrxxxxxxxxxxxxx| VIN številka vozila, ki ga iščemo         |
-> |vin|wvwzxxxxxxxxxxxxx| VIN številka drugega vozila, ki ga iščemo |
-> 
-
-## poizvedba po bazi po različnih parametrih
-
-```
-GET https://api-aw46ycnrva-ey.a.run.app/api/v0/query?gorivo=bencin&model_simple=jazz
-```
-
-Omogočeno je tudi klicanje poizvedb s filtriranjem.
-
-Filtri, ki jih trenutno lahko določamo:
-
-- Filtriramo lahko po enakosti polja: gorivo = "bencin"
-- Filtre enakosti lahko tudi združujemo z ostalimi: gorivo = "bencin" in model_simple = "jazz"
-    
-
-Parameter limit predstavlja število vrnjenih zapisov. Maksimalno število je 25.
-
-Parameter offset pa je VIN številka zadnjega zapisa v predhodnem odgovoru. Ta parameter uporabimo, če naša poizvedba vrne >25 zapisov. Recimo, da naša poizvedba vsebuje 50 zapisov. To pomeni, da jih bomo v odgovoru dobili max. 25, če le to z limit parametrom nismo določili drugače.
-
-Če bi želeli dobiti naslednjih 25 v tej poizvedbi, moramo z offset parametrom poslati VIN zadnjega zapisa v prejšnjem odogovoru. Če offset parametra ne bi specificirali, bi ponovno dobili enakih 25 zapisov.
-
-### Request
-
-> 
-> **Query**
-> 
-> |Key|Value|Description|
-> |---|---|---|
-> |gorivo|bencin||
-> |model_simple|jazz||
-> 
-
-## poizvedba po bazi po različnih parametrih z offset-om
-
-```
-GET https://api-aw46ycnrva-ey.a.run.app/api/v0/query?gorivo=bencin&model_simple=jazz&offset=jhmgxxxxxxxxxxxxx
-```
-
-Če bi želeli dobiti naslednjih 25 v tej poizvedbi, moramo z offset parametrom poslati VIN zadnjega zapisa v prejšnjem odogovoru. Če offset parametra ne bi specificirali, bi ponovno dobili enakih 25 zapisov.
-
-### Request
-
-> 
-> **Query**
-> 
-> |Key|Value|Description|
-> |---|---|---|
-> |gorivo|bencin||
-> |model_simple|jazz||
-> |offset|jhmgxxxxxxxxxxxxx|Zadnja vin številka v predhodnem izpisu|
-> 
-
 Generated with [Postdown][PyPI].
 
 [PyPI]:    https://pypi.python.org/pypi/Postdown
