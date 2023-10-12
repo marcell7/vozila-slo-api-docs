@@ -1,6 +1,7 @@
 # API registriranih vozil v Sloveniji
 
 API za pridobitev podatkov o vseh registriranih avtomobilih v Sloveniji.
+Trenutni podatki so od leta 2016 do 2022. Aktualni podatki za leto 2023 se posodobijo konec leta.
 
 
 ## išči po VIN številki
