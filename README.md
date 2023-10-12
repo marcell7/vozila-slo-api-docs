@@ -186,7 +186,7 @@ GET https://api-aw46ycnrva-ey.a.run.app/api/v0/query?gorivo=bencin&model_simple=
 // Primer: Avto s 5000km spada v kategorijo +0, ker ima več kot 0 in manj kot 10000 prevoženih km.
 //
 // **  opozorila glede prevoženih kilometrov.
-// V prvotnih podatkih je pri kilometrih nekaj napak. Ta parameter nam pove, če so podatki razlike v kilometrih med posameznimi leti nenormalne.
+// V prvotnih podatkih je pri kilometrih kar nekaj napak. Ta parameter nam pove, če je potrebno biti pozoren pri zabeleženih kilometrih. ker gre lahko za napako.
 // Parameter ima tudi vrednost 1, če ima avto prevrtene kilometre.
 //
 // *** opozorilo glede tehničnih pregledov.
