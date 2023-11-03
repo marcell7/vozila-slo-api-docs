@@ -1,4 +1,8 @@
-# API registriranih vozil v Sloveniji
+# API registriranih vozil v Sloveniji (ni aktiven)
+
+## API ni več aktiven, ker se je izkazalo, da ni ravno uporaben za izvajanje neke statistike, kar je bil primarni cilj vsega skupaj. Tukaj je povezava do boljše rešitve za ta namen -> https://github.com/marcell7/vozila-slo-app
+
+_________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 API za pridobitev podatkov o vseh registriranih avtomobilih v Sloveniji.
 Trenutni podatki so od leta 2016 do 2022. Aktualni podatki za leto 2023 se posodobijo konec leta.
